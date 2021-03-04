@@ -42,6 +42,7 @@ public class Nivell3 {
 	protected static ArrayList<Vehicle> listVehicles;
 	private static String esConductor;
 	private static String mesConductors;
+	private static String sortir;
 
 	static void Process() throws Exception {
 
@@ -131,7 +132,7 @@ public class Nivell3 {
 				assignTitularAndPersonesToVehicle();
 				System.out.println("Titular i Conductors assignats al vehicle\n");
 
-				nom = (JOptionPane.showInputDialog("Vols sortir de la aplicació: S o N")).toUpperCase();
+				sortir = (JOptionPane.showInputDialog("Vols sortir de la aplicació: S o N")).toUpperCase();
 
 			} catch (
 
@@ -140,7 +141,7 @@ public class Nivell3 {
 				System.exit(0);
 			}
 
-		} while (!tipusVehicle.equals("S"));
+		} while (!sortir.equals("S"));
 	}
 
 	private static void assignTitularAndPersonesToVehicle() {

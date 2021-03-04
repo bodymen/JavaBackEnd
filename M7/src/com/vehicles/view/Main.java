@@ -15,9 +15,9 @@ public class Main {
 
 	 // Nivell1.Process();
 	 
-	 // Nivell2.Process();
+	  Nivell2.Process();
 	 
-	 Nivell3.Process();
+	 //Nivell3.Process();
 
 	}
 

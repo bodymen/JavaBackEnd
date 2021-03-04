@@ -36,46 +36,26 @@ public class Nivell2 {
 	private static Conductor conductor;
 	private static String llicenciaTipus;
 	private static String llicenciaData;
-	private static String esTitular;
+	private static String esConductor;
 
 	static void Process() throws Exception {
 
 		System.out.println("Milestone 2");
 
 		/**
-		 * Primer és crea el conductor i si aquest té llicencia, es crea el vehicle
-		 * finalment si el conductor es també es titular es recull si te parking i
-		 * garatge sino es crear un nou Titular.
+		 * Primer és crea el titular i , es crea el vehicle i les rodes. Despres si el
+		 * titular no es el conductor es recull les noves dades i es comprova la
+		 * llicencia.
 		 **/
 
-		/* Crear Conductor */
-		nom = (JOptionPane.showInputDialog("Introdueix el Nom del Conductor: "));
-		cognom = (JOptionPane.showInputDialog("Introdueix el Cognom del Conductor: "));
-		dataNaixement = (JOptionPane.showInputDialog("Introdueix la data Naixement del Conductor: "));
-
-		/* Crear LLicencia */
-		do {
-			llicenciaTipus = (JOptionPane
-					.showInputDialog("Introdueix el Tipus de LLicencia: A (moto), B (cotxe), C (camio)")).toUpperCase();
-			llicenciaData = (JOptionPane.showInputDialog("Introdueix data d'expiració de la LLicencia"));
-		} while (!llicenciaTipus.equals("A") && !llicenciaTipus.equals("B") && !llicenciaTipus.equals("C"));
-
-		Llicencia llicencia = new Llicencia(llicenciaTipus, nom + " " + cognom, llicenciaData);
-		conductor = new Conductor(nom, cognom, dataNaixement, llicencia);
-		System.out.println(conductor.toString());
-
-		/* Crear Vehicle */
-		do {
-			tipusVehicle = (JOptionPane
-					.showInputDialog("Vols crear un cotxe, una moto o un camio, introdueix; C ó M ó T")).toUpperCase();
-		} while (!tipusVehicle.equals("C") && !tipusVehicle.equals("M") && !tipusVehicle.equals("T"));
-
-		matricula = (JOptionPane.showInputDialog(tipusVehicle + ": Introdueix la matricula: "));
-		marca = (JOptionPane.showInputDialog(tipusVehicle + ": Introdueix la marca: "));
-		color = (JOptionPane.showInputDialog(tipusVehicle + ": Introdueix el color: "));
-
-		String tipusRoda = "Davant";
 		try {
+
+			createTitularAskForData();
+			titular = new Titular(nom, cognom, dataNaixement, isTeAsseguranca.equals("S"), isTeGaratge.equals("S"));
+			System.out.println(titular.toString());
+
+			createVehicleAskForData();
+			String tipusRoda = "Davant";
 			if (tipusVehicle.equals("C")) {
 				cotxe = new Car(matricula, marca, color);
 				setWhells(tipusRoda, rodes1);
@@ -89,6 +69,7 @@ public class Nivell2 {
 			}
 
 			if (tipusVehicle.equals("M")) {
+				/* Si es moto només té 1 llista de rodes, llavors no és crea */
 				moto = new Bike(matricula, marca, color);
 				tipusRoda = "Moto";
 			}
@@ -106,24 +87,18 @@ public class Nivell2 {
 				System.out.println(moto.toString());
 			}
 
-			esTitular = (JOptionPane.showInputDialog("El Conductor és també el Titular: S ó N ")).toUpperCase();
+			esConductor = (JOptionPane.showInputDialog("El Titular és també el Conductor?: S ó N ")).toUpperCase();
 
-			if (esTitular.equals("S")) {
-				isTeAsseguranca = (JOptionPane.showInputDialog("El Titular té aseguranca: S o N")).toUpperCase();
-				isTeGaratge = (JOptionPane.showInputDialog("El Titular té parking: S o N")).toUpperCase();
+			if (esConductor.equals("S")) {
+				conductor = new Conductor(titular.name, titular.cognom, titular.data,
+						createLlicencia("el titular " + titular.name));
 			} else {
-				/* Crear Nuevo Titular */
-				nom = (JOptionPane.showInputDialog("Introdueix el Nom del Titular: "));
-				cognom = (JOptionPane.showInputDialog("Introdueix el Cognom del Titular: "));
-				dataNaixement = (JOptionPane.showInputDialog("Introdueix la data Naixement del Titular: "));
-				isTeAsseguranca = (JOptionPane.showInputDialog("El Titular té aseguranca: S o N")).toUpperCase();
-				isTeGaratge = (JOptionPane.showInputDialog("El Titular té parking: S o N")).toUpperCase();
+				createConductorAskForData();
+				conductor = new Conductor(nom, cognom, dataNaixement, createLlicencia(nom));
 			}
 
-			titular = new Titular(nom, cognom, dataNaixement, isTeAsseguranca.equals("S"), isTeGaratge.equals("S"));
-			System.out.println(titular.toString());
-
 			compareLlicenciaToVechicleCreated(llicenciaTipus, tipusVehicle);
+			System.out.println(conductor.toString());
 
 		} catch (
 
@@ -134,12 +109,48 @@ public class Nivell2 {
 
 	}
 
+	private static void createTitularAskForData() {
+		nom = (JOptionPane.showInputDialog("Introdueix el Nom del Titular: "));
+		cognom = (JOptionPane.showInputDialog("Introdueix el Cognom del Titular: "));
+		dataNaixement = (JOptionPane.showInputDialog("Introdueix la data Naixement del Titular: dd/mm/yyyy "));
+		isTeAsseguranca = (JOptionPane.showInputDialog("El Titular té aseguranca: S o N")).toUpperCase();
+		isTeGaratge = (JOptionPane.showInputDialog("El Titular té parking: S o N")).toUpperCase();
+	}
+
+	private static void createVehicleAskForData() {
+		do {
+			tipusVehicle = (JOptionPane
+					.showInputDialog("Vols crear un cotxe, una moto o un camio, introdueix; C ó M ó T")).toUpperCase();
+		} while (!tipusVehicle.equals("C") && !tipusVehicle.equals("M") && !tipusVehicle.equals("T"));
+
+		matricula = (JOptionPane.showInputDialog(tipusVehicle + ": Introdueix la matricula: "));
+		marca = (JOptionPane.showInputDialog(tipusVehicle + ": Introdueix la marca: "));
+		color = (JOptionPane.showInputDialog(tipusVehicle + ": Introdueix el color: "));
+	}
+
+	private static Llicencia createLlicencia(String name) throws Exception {
+		do {
+			llicenciaTipus = (JOptionPane.showInputDialog(
+					"Introdueix el Tipus de LLicencia per " + name + " : A (moto), B (cotxe), C (camio)"))
+							.toUpperCase();
+			llicenciaData = (JOptionPane.showInputDialog("Introdueix data d'expiració de la LLicencia: dd/mm/yyyy"));
+		} while (!llicenciaTipus.equals("A") && !llicenciaTipus.equals("B") && !llicenciaTipus.equals("C"));
+
+		Llicencia llicencia = new Llicencia(llicenciaTipus, nom + " " + cognom, llicenciaData);
+		return llicencia;
+	}
+
+	private static void createConductorAskForData() {
+		nom = (JOptionPane.showInputDialog("Introdueix el Nom del Conductor: "));
+		cognom = (JOptionPane.showInputDialog("Introdueix el Cognom del Conductor: "));
+		dataNaixement = (JOptionPane.showInputDialog("Introdueix la data Naixement del Conductor: "));
+	}
+
 	static void setWhells(String tipusRoda, List<Wheel> rodes) throws Exception {
 		int i = 0;
 		for (i = 0; i < 2; i++) {
-			rodaMarca = (JOptionPane.showInputDialog("Rodes " + tipusRoda + ": Introdueix la marca: "));
-			rodaDiametre = Double
-					.parseDouble((JOptionPane.showInputDialog("Rodes " + tipusRoda + ": Introdueix la diametre: ")));
+			rodaMarca = (JOptionPane.showInputDialog("Rodes " + tipusRoda + ": marca?: "));
+			rodaDiametre = Double.parseDouble((JOptionPane.showInputDialog("Rodes " + tipusRoda + ": diametre?: ")));
 			roda = new Wheel(rodaMarca, rodaDiametre);
 			rodes.add(roda);
 		}
