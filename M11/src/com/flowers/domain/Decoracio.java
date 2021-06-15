@@ -18,4 +18,11 @@ public class Decoracio extends Producte {
 
 		private Material material;
 
+		@Override
+		public String toString() {
+			return "Decoracio [material=" + material + ", toString()=" + super.toString() + "]";
+		}
+		
+		
+
 }

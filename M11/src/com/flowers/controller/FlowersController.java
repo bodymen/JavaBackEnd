@@ -3,6 +3,7 @@ package com.flowers.controller;
 import com.flowers.persistence.FloristeriaRepo;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.flowers.domain.Arbre;
 import com.flowers.domain.Decoracio;
@@ -88,5 +89,23 @@ public class FlowersController {
 	{
 		return this.myfloristeria.getStockDecoracio();
 	}
+
+	public Arbre getArbre(String nom) {
+		return (Arbre) this.myfloristeria.getAllArbres().stream()
+				.filter(a -> a.getNom().toUpperCase().equals(nom.toUpperCase()))
+				.collect(Collectors.toList()).get(0);
+	} 
+	
+	public Flor getFlor(String nom) {
+		return (Flor) this.myfloristeria.getAllFlors().stream()
+				.filter(a -> a.getNom().toUpperCase().equals(nom.toUpperCase()))
+				.collect(Collectors.toList()).get(0);
+	} 
+	
+	public Decoracio getDecoracio(String nom) {
+		return (Decoracio) this.myfloristeria.getAllDecoracio().stream()	
+				.filter(a -> a.getNom().toUpperCase().equals(nom.toUpperCase()))
+				.collect(Collectors.toList()).get(0);
+	} 
 	
 }
