@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>DETALLE EMPLEADO</title>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.3/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+</head>
+
+<body class="container">
+
+<h1 class="py-5">DETALLE EMPLEADO</h1>
+
+<form th:action="@{/empleado}" th:method="put" class="col card p-3 mb-5">
+    <div class="form-group">
+        <label>Nombre</label>
+        <input type="text" required name="nom"  th:value="${empleado.nom}" class="form-control"/>
+    </div>
+    <div class="form-group">
+        <label>Salari</label>
+        <input type="text" disabled id="salari" name="salari" th:value="${empleado.salari}" class="form-control"/>
+    </div>
+    <div class="form-group">
+        <label>Puesto</label>
+        <select th:onclick="" id="puesto" name="puesto" required th:value="${empleado.puesto}" class="form-control">
+            <option th:value="${empleado.puesto}" th:text="${empleado.puesto}"> </option>
+            <option th:each="puesto : ${T(com.curso.m13.dto.FeinesEnum).values()}"
+                    th:value="${puesto}"
+                    th:text="${puesto} + '-' + ${puesto.numVal}">
+            </option>
+        </select>
+    </div>
+    <input type="hidden" name=id th:value="${empleado.id}">
+    <input type="submit" class="btn btn-primary" value="Guardar">
+</form>
+
+<script th:inline="javascript">
+
+// function myFunction(e) {
+// 	alert('eee' + e.value);
+// 	var puesto = [[${empleado.nom}]];
+// 	alert(puesto);
+// };
+
+// 	var puesto = document.getElementById('puesto');
+// 	puesto.addEventListener("change", validaCheckboxMAT, false);
+// 	function validaCheckboxMAT() {
+// 			alert('checkboxMAT' + puesto.numVal);
+// 		var  text=	document.getElementById('salari');
+// 		text.value  = 1000;
+// 	}
+
+// 	$(document).on('change','#puesto',function(e) {
+// 				alert("hola" + e);
+// 				var aux = e;
+// 				var aux1 = e.getNumVal();
+// 				$('#salari').val() == aux1;
+// 			});
+</script>
+
+</body>
+</html>
+ 

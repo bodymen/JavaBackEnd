@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+	content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>DETALLE EMPLEADO</title>
+<link rel="stylesheet"
+	href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.3/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+</head>
+
+<body class="container">
+
+	<div class="row">
+		<div class="col-md-8 col card p-3 mb-5 center"
+			style="align: center; text-align: center;">
+			<h1>LISTADO DE EMPLEADOS</h1>
+		</div>
+		<div class="col-md-4">
+			<form th:action="@{/buscar}" th:method="get"
+				class="col card p-3 mb-5">
+				<div class="form-group">
+					<select id="puesto" name="puesto" required class="form-control">
+						<option>Selecionar puesto</option>
+						<option
+							th:each="puesto : ${T(com.curso.m13.dto.FeinesEnum).values()}"
+							th:value="${puesto}" th:text="${puesto}"></option>
+					</select>
+				</div>
+				<input type="submit" class="btn btn-primary" value="Buscar">
+			</form>
+		</div>
+	</div>
+
+
+	<div th:classappend="'alert-' + (${clase != null} ? ${clase} : info)"
+		th:if="${mensaje != null}" th:text="${mensaje}" class="alert"></div>
+
+	<table border=1 class="table">
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>Nombre</th>
+				<th>Puesto</th>
+				<th>Salario</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:if="${empleados.empty}">
+				<td colspan="2">No hay empleados</td>
+			</tr>
+			<tr th:each="empleado: ${empleados}">
+				<td th:text="${empleado.id}" />
+				<td th:text="${empleado.nom}" />
+				<td th:text="${empleado.puesto}" />
+				<td th:text="${empleado.salari}" />
+
+				<td><form th:action="@{/empleado/}+${empleado.id}"
+						th:method="delete" class="form control">
+						<input type="submit" class="btn btn-danger" value="Borrar">
+					</form></td>
+
+				<td><a th:href="@{/edit/}+${empleado.id}"
+					class="btn btn-warning">Editar</a></td>
+			</tr>
+		</tbody>
+	</table>
+
+
+	<form th:action="@{/empleado}" th:method="post"
+		class="col card p-3 mb-5">
+		<input type="submit" class="btn btn-primary" value="Crear Nuevo">
+		<div class="form-group">
+			<label>Nombre</label> <input type="text" required name="nom"
+				class="form-control" />
+		</div>
+		<div class="form-group">
+			<label>Puesto</label> <select id="puesto" name="puesto" required
+				class="form-control">
+				<option>Selecionar puesto</option>
+				<option
+					th:each="puesto : ${T(com.curso.m13.dto.FeinesEnum).values()}"
+					th:value="${puesto}" th:text="${puesto} + '-' + ${puesto.numVal}">
+				</option>
+			</select>
+		</div>
+	</form>
+</body>
