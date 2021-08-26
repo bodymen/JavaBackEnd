@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+	content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>DETALLE TIENDAS</title>
+<link rel="stylesheet"
+	href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.3/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+</head>
+
+<body class="container">
+
+	<div class="row">
+		<div class="col-md-8 col card p-3 mb-5 center"
+			style="text-align: center;">
+			<h1>LISTADO DE TIENDAS</h1>
+		</div>
+		<div class="col-md-4">
+			<form th:action="@{/buscar}" th:method="get"
+				class="col card p-3 mb-5">
+				<div class="form-group">
+					<select id="puesto" name="puesto" required class="form-control">
+						<option>Selecionar tienda</option>
+						<option
+							th:each="puesto : ${T(com.curso.m13.dto.FeinesEnum).values()}"
+							th:value="${puesto}" th:text="${puesto}"></option>
+					</select>
+				</div>
+				<input type="submit" class="btn btn-primary" value="Buscar">
+			</form>
+		</div>
+	</div>
+
+
+	<div th:classappend="'alert-' + (${clase != null} ? ${clase} : info)"
+		th:if="${mensaje != null}" th:text="${mensaje}" class="alert"></div>
+
+	<table border=1 class="table">
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>Nombre</th>
+				<th>Cantidad</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:if="${shops.empty}">
+				<td colspan="2">No hay empleados</td>
+			</tr>
+			<tr th:each="shop ${shops}">
+				<td th:text="${shops.id}" />
+				<td th:text="${shops.name}" />
+				<td th:text="${shops.quantity}" />
+
+				<td><form th:action="@{/shop/}+${shop.id}"
+						th:method="delete" class="form control">
+						<input type="submit" class="btn btn-danger" value="Borrar">
+					</form></td>
+
+				<td><a th:href="@{/edit/}+${shop.id}"
+					class="btn btn-warning">Editar</a></td>
+			</tr>
+		</tbody>
+	</table>
+
+<a th:href="@{'/shop/{id}/picture'{id=${shop.id})}"> </a>
+	<form th:action="@{/shop}" th:method="post"
+		class="col card p-3 mb-5">
+		<input type="submit" class="btn btn-primary" value="Crear Nuevo">
+		<div class="form-group">
+			<label>Nombre</label> <input type="text" required name="name"
+				class="form-control" />
+		</div>
+		<div class="form-group">
+			<label>Cantidad</label> <input type="text" required name="quantity"
+				class="form-control" />
+		</div>		
+	</form>
+</body>
