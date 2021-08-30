@@ -66,7 +66,7 @@ public class PlayersService implements IPlayersService {
 				.max()
 				.orElseThrow(NoSuchElementException::new);
 		
-		/*  Otra forma de hacerlo devolviento Objeto Players.
+		/*  Otra forma de hacerlo devolviendo Objeto Players.
 		 * 
 		 * return listPlayers.stream()
 				.min(Comparator.comparing(Players::getPromedio))
@@ -74,6 +74,12 @@ public class PlayersService implements IPlayersService {
 		 * 
 		 * 
 		 */
+	}
+
+
+	@Override
+	public List<Players> getPlayersByNameIgnoreCase(String name) {
+		return  playerRepository.findByNameIgnoreCase(name);
 	}
 
 }

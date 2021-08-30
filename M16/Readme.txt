@@ -15,3 +15,14 @@ https://www.javatpoint.com/spring-boot-crud-operations
 
 Para ver la consola de H2 - BBDD
 http://localhost:8080/h2-console/
+
+***********JWT*************
+Ver PDF modulo 15.
+https://itacademy.barcelonactiva.cat/pluginfile.php/7641/mod_resource/content/0/M15%20-%20Servicio%20API%20Rest%20Mongo.pdf
+
+https://blog.softtek.com/es/autenticando-apis-con-spring-y-jwt
+https://windoctor7.github.io/spring-jwt.html
+https://rubenjgarcia.cloud/jwt-spring-boot/
+
+
+

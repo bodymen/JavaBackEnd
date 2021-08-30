@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.curso.m16.common.UtilHelper;
 import com.curso.m16.model.Launchs;
 import com.curso.m16.model.Players;
 import com.curso.m16.service.Impl.ILaunchsService;
@@ -31,7 +32,7 @@ public class PlayersController {
 
 	@Autowired
 	ILaunchsService launchsService;
-	
+
 	@GetMapping("/player")
 	private List<Players> getAllPlayers() {
 		return playersService.getAllPlayers();
@@ -53,14 +54,20 @@ public class PlayersController {
 		if (player.getName().trim().isEmpty() && player.isAnomin() == false)
 			return "Nombre no puede estar vacio";
 		else {
-			if (player.isAnomin() == true)
-				player.setName(null);
+
 			try {
-				playersService.saveOrUpdate(player);
+
+				if (player.isAnomin() == true) {
+					player.setName("ANONYMOUS");
+					playersService.saveOrUpdate(player);
+					// if NAME already exist, don't save it.
+				} else if (playersService.getPlayersByNameIgnoreCase(player.getName()) == null || 
+						playersService.getPlayersByNameIgnoreCase(player.getName()).size()==0)
+					playersService.saveOrUpdate(player);
+				else
+					return "Nombre debe ser unico";
 			} catch (Exception e) {
-				//  Transaction().rollback(); UnitOfWork ?? 
-				//  *** Aumenta el ID aunque no inserta! ****
-				return "Nombre debe ser unico";
+				// TODO
 			}
 		}
 		return String.valueOf(player.getId());
@@ -73,10 +80,10 @@ public class PlayersController {
 	}
 
 	/***************** LAUNCH (tiradas-games) *********************/
-
 	/**
-	 * Un jugador específic realitza una tirada dels daus.
-	 * Actulitzo el promedi de les seves tirades (launchs)
+	 * Un jugador específic realitza una tirada dels daus. Actulitzo el promedi de
+	 * les seves tirades (launchs)
+	 * 
 	 * @param playerId
 	 * @param launch
 	 * @return
@@ -105,7 +112,7 @@ public class PlayersController {
 	private void deleteLaunchsForPlayer(@PathVariable("playerid") int playerId) {
 		List<Launchs> launchs = launchsService.findAllByPlayers(playerId);
 		launchsService.deleteAllByPlayer(launchs);
-		//Reset Promedio = 0
+		// Reset Promedio = 0
 		Players p = playersService.getPlayersById(playerId);
 		p.setPromedio(0.0);
 		playersService.saveOrUpdate(p);
@@ -121,17 +128,17 @@ public class PlayersController {
 
 	@GetMapping("/player/ranking")
 	private double getRankingPlayers() {
-		return playersService.getRankingPlayers()*100;
+		return playersService.getRankingPlayers() * 100;
 	}
 
 	@GetMapping("/player/ranking/loser")
 	private double getRankingPlayerLoser() {
-		return playersService.getRankingPlayerLoser()*100;
+		return playersService.getRankingPlayerLoser() * 100;
 	}
 
 	@GetMapping("/player/ranking/winner")
 	private double getRankingPlayerWinner() {
-		return playersService.getRankingPlayerWinner()*100;
+		return playersService.getRankingPlayerWinner() * 100;
 	}
 
 }

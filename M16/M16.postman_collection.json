@@ -6,13 +6,52 @@
 	},
 	"item": [
 		{
-			"name": "Add Player",
+			"name": "Login",
 			"request": {
 				"method": "POST",
 				"header": [],
 				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "user",
+							"value": "toni",
+							"type": "text"
+						},
+						{
+							"key": "pwd",
+							"value": "pwd",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8080/user",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Player",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJqdGkiOiJzb2Z0dGVrSldUIiwic3ViIjoiZWR1IiwiYXV0aG9yaXRpZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTYzMDMzNTk1OSwiZXhwIjoxNjMwMzM2NTU5fQ.8cwAcFh_TMltRa9oLqDvS0M9TK-tpupvYyJYCmu9tbpNZ8nKhT78r2ua0xBwJ6A_OUU6uJJAO5-9Q5RhOve8bg",
+						"type": "text"
+					}
+				],
+				"body": {
 					"mode": "raw",
-					"raw": "{ \r\n\"name\":\"Pepewwee\",\r\n\"isAnomin\":false}",
+					"raw": "{ \r\n\"name\": \"SasdfsxS\",\r\n\"anomin\":true}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -39,8 +78,14 @@
 				"method": "PUT",
 				"header": [],
 				"body": {
-					"mode": "raw",
-					"raw": "{ \r\n\"id\" : 1,\r\n\"name\":\"xxx\",\r\n\"anomin\":false}",
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "Authorization",
+							"value": "",
+							"type": "text"
+						}
+					],
 					"options": {
 						"raw": {
 							"language": "json"
@@ -67,7 +112,13 @@
 			},
 			"request": {
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "raw",
 					"raw": ""
@@ -92,7 +143,13 @@
 			},
 			"request": {
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "raw",
 					"raw": ""
@@ -112,10 +169,48 @@
 			"response": []
 		},
 		{
+			"name": "Get Players By Name",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:8080/player/xxx",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"player",
+						"xxx"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Delete Player",
 			"request": {
 				"method": "DELETE",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "file",
 					"file": {}
@@ -138,7 +233,13 @@
 			"name": "New Launch for a Player",
 			"request": {
 				"method": "POST",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "raw",
 					"raw": "{ \r\n \r\n}",
@@ -149,14 +250,14 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:8080/player/7/games",
+					"raw": "localhost:8080/player/3/games",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
 						"player",
-						"7",
+						"3",
 						"games"
 					],
 					"query": [
@@ -174,7 +275,13 @@
 			"name": "Delete Launch for a Player",
 			"request": {
 				"method": "DELETE",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "raw",
 					"raw": "",
@@ -185,14 +292,14 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:8080/player/1/games",
+					"raw": "localhost:8080/player/2/games",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
 						"player",
-						"1",
+						"2",
 						"games"
 					]
 				}
@@ -206,20 +313,26 @@
 			},
 			"request": {
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "file",
 					"file": {}
 				},
 				"url": {
-					"raw": "localhost:8080/player/1/games",
+					"raw": "localhost:8080/player/2/games",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
 						"player",
-						"1",
+						"2",
 						"games"
 					]
 				}
@@ -233,7 +346,13 @@
 			},
 			"request": {
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "file",
 					"file": {}
@@ -259,7 +378,13 @@
 			},
 			"request": {
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "file",
 					"file": {}
@@ -286,7 +411,13 @@
 			},
 			"request": {
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "file",
 					"file": {}

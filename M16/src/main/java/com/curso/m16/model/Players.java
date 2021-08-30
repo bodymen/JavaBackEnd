@@ -24,7 +24,8 @@ public class Players extends AuditModel {
 	@Column
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	@Column(unique = true, nullable = true)
+	//Managed in controller.
+	//@Column(unique = true, nullable = true)
 	private String name;
 	@Column
 	private boolean isAnomin = false;
@@ -65,7 +66,7 @@ public class Players extends AuditModel {
 
 	@Override
 	public String toString() {
-		return "Players [id=" + id + ", name=" + name==null? "ANONYMOUS" : name + ", isAnomin=" + isAnomin + ", promedio=" + promedio + "]";
+		return "Players [id=" + id + ", name=" + name + ", isAnomin=" + isAnomin + ", promedio=" + promedio + "]";
 	}
 
 }

@@ -21,5 +21,7 @@ public interface IPlayersService {
 	double getRankingPlayerLoser();
 
 	double getRankingPlayerWinner();
+
+	List<Players> getPlayersByNameIgnoreCase(String name);
 	
 }

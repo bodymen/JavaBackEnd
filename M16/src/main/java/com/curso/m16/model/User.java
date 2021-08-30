@@ -1,7 +1,5 @@
 package com.curso.m16.model;
 
-import java.util.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -19,18 +17,52 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table
-@JsonIgnoreProperties(value = {"hibernateLazyInitializer", "handler"})
-public class Games extends AuditModel {
+@JsonIgnoreProperties(value = { "hibernateLazyInitializer", "handler" })
+public class User extends AuditModel {
 
+	
 	@Id
 	@Column
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
 	@Column
-	private int numPlayers;
+	private String user;
+	@Column
+	private String pwd;
+	@Column
+	private String token;
 
-	//NO LO USO DE MOMENTO ES PARA CREAR NUEVA PARTIDA CON EL NUMERO DE JUGADORES.
-	//Menu al arracar la APP. NuevaPartida(int numeroDeJugadores) y crear los jugadores.
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+	
+	public String getUser() {
+		return user;
+	}
+
+	public String getPwd() {
+		return pwd;
+	}
+
+	public String getToken() {
+		return token;
+	}
+
+	public void setUser(String user) {
+		this.user = user;
+	}
+
+	public void setPwd(String pwd) {
+		this.pwd = pwd;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
+	}
+
 
 }
