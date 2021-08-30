@@ -11,3 +11,6 @@ https://docs.spring.io/spring-data/mongodb/docs/current/reference/html/#mapping.
 
 Auditing with JPA, Hibernate, and Spring Data JPA
 https://www.baeldung.com/database-auditing-jpa
+
+Spring-Boot. Introducción a la persistencia con MongoDB. Y metodos de consultas!
+https://www.youtube.com/watch?v=UYPbxhj3og0
