@@ -1,4 +1,4 @@
-package com.curso.m13.dto;
+package com.curso.m13.model;
 
 public enum FeinesEnum {
 

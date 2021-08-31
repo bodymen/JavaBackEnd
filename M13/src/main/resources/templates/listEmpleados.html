@@ -12,21 +12,21 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 </head>
 
-<body class="container">
+<body class="container" style="padding-top: 10px;">
 
 	<div class="row">
 		<div class="col-md-8 col card p-3 mb-5 center"
 			style="align: center; text-align: center;">
-			<h1>LISTADO DE EMPLEADOS</h1>
+			<h1><a th:href="@{/empleado}" >VER EMPLEADOS</a></h1>
 		</div>
 		<div class="col-md-4">
 			<form th:action="@{/buscar}" th:method="get"
 				class="col card p-3 mb-5">
 				<div class="form-group">
 					<select id="puesto" name="puesto" required class="form-control">
-						<option>Selecionar puesto</option>
+						<option value="">Seleccionar puesto</option>
 						<option
-							th:each="puesto : ${T(com.curso.m13.dto.FeinesEnum).values()}"
+							th:each="puesto : ${T(com.curso.m13.model.FeinesEnum).values()}"
 							th:value="${puesto}" th:text="${puesto}"></option>
 					</select>
 				</div>
@@ -40,6 +40,7 @@
 		th:if="${mensaje != null}" th:text="${mensaje}" class="alert"></div>
 
 	<table border=1 class="table">
+	<caption style="caption-side:top">Detalle empleados</caption>
 		<thead>
 			<tr>
 				<th>ID</th>
@@ -82,7 +83,7 @@
 				class="form-control">
 				<option>Selecionar puesto</option>
 				<option
-					th:each="puesto : ${T(com.curso.m13.dto.FeinesEnum).values()}"
+					th:each="puesto : ${T(com.curso.m13.model.FeinesEnum).values()}"
 					th:value="${puesto}" th:text="${puesto} + '-' + ${puesto.numVal}">
 				</option>
 			</select>

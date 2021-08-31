@@ -1,21 +1,38 @@
-package com.curso.m13.dto;
+package com.curso.m13.model;
 
-import org.springframework.stereotype.Component;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
-//@Component
-public class EmpleadoDto extends ResponseDto{
 
-	//Integer
+@Entity
+@Table
+public class Empleado{
+
+	@Id
+	@Column
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+	@Column
     private String nom;
+	@Column
     private Integer salari;
+	@Column
     private String puesto;
     
-	public EmpleadoDto(Integer id, String nom, Integer salari, String puesto) {
+	public Empleado(Integer id, String nom, Integer salari, String puesto) {
+		super();
 		this.id = id;
 		this.nom = nom;
 		this.salari = salari;
 		this.puesto = puesto;
+	}
+	
+	public Empleado() {
+		super();
 	}
 	
 	public Integer getId() {

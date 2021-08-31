@@ -27,7 +27,7 @@
         <label>Puesto</label>
         <select th:onclick="" id="puesto" name="puesto" required th:value="${empleado.puesto}" class="form-control">
             <option th:value="${empleado.puesto}" th:text="${empleado.puesto}"> </option>
-            <option th:each="puesto : ${T(com.curso.m13.dto.FeinesEnum).values()}"
+            <option th:each="puesto : ${T(com.curso.m13.model.FeinesEnum).values()}"
                     th:value="${puesto}"
                     th:text="${puesto} + '-' + ${puesto.numVal}">
             </option>
