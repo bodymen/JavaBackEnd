@@ -29,7 +29,7 @@ public class EmpleadoController {
 	private int contadorId = 0;
 
 	/*** COMENTAR y/o DESCOMETAR LAS IMPLENTACIONES Y CONSTRUCTORES PARA CAMBIAR DE NIVEL  ***/
-	
+
 	/** N1 ARRAY repository **/
 //	@Autowired
 //	private final IEmpleadoServiceN1 empleadoService;
@@ -39,6 +39,8 @@ public class EmpleadoController {
 //		this.contadorId = 3;
 //	}
 
+
+
 //	/** N2 -MySQL repository JDBC **/
 //	@Autowired
 //	private final IEmpleadoServiceN2 empleadoService;
@@ -46,12 +48,13 @@ public class EmpleadoController {
 //		this.empleadoService = empleadoService;
 //	}
 
+
 	/** N3 -MySQL repository JPA **/
 	@Autowired
 	private final IEmpleadoServiceN3 empleadoService;
 	public EmpleadoController(IEmpleadoServiceN3 empleadoService) {
 		this.empleadoService = empleadoService;
-	}
+	}	
 	
 	/***********************************************************************************/
 	
