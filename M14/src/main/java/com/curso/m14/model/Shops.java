@@ -25,16 +25,6 @@ public class Shops extends AuditModel {
 	@Column
 	private int quantity;
 	 
-//	private List<Pictures> pictures;
-//
-//	public List<Pictures> getPictures() {
-//		return pictures;
-//	}
-//
-//	public void setPictures(List<Pictures> pictures) {
-//		this.pictures = pictures;
-//	}
-
 	public int getId() {
 		return id;
 	}
