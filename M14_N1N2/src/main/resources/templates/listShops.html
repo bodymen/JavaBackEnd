@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+	content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>DETALLE TIENDAS</title>
+<link rel="stylesheet"
+	href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.3/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+</head>
+
+<body class="container">
+
+	<div class="row">
+		<div class="col-md-8 col card p-3 mb-5 center"
+			style="text-align: center;">
+			<h1>LISTADO DE TIENDAS</h1>
+		</div>
+		<div class="col-md-4">
+			<!-- 			<form th:action="@{/shop/${shopId}/pictures}" -->
+			<form th:action="@{/buscar}" th:method="get"
+				class="col card p-3 mb-5">
+				<div class="form-group">
+					<select id="shopId" name="shopId" required class="form-control">
+						<option value="">Seleccionar tienda</option>
+						<option th:each="shop : ${shops}" th:value="${shop.id}"
+							th:text="${shop.name}"></option>
+					</select>
+				</div>
+				<input type="submit" class="btn btn-primary" value="Buscar Cuadros">
+			</form>
+		</div>
+	</div>
+
+
+	<div th:classappend="'alert-' + (${clase != null} ? ${clase} : info)"
+		th:if="${mensaje != null}" th:text="${mensaje}" class="alert"></div>
+
+	<table border=1 class="table">
+		<caption style="caption-side: top">Detalle tiendas</caption>
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>Nombre</th>
+				<th>Capacidad</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:if="${shops.empty}">
+				<td colspan="2">No hay Shops</td>
+			</tr>
+			<tr th:each="shop : ${shops}">
+				<td th:text="${shop.id}" />
+				<td th:text="${shop.name}" />
+				<td th:text="${shop.quantity}" />
+
+<!-- 				FUNCIONA PERO LO PREFIERO EN EL DESPLEGABLE   -->
+<!-- 						<td><form -->
+<!-- 						th:action="@{/shop/{shopId}/pictures(shopId=${shop.id})}" -->
+<!-- 						th:method="get" class="form control"> -->
+<!-- 						<input type="submit" class="btn btn-primary" value="Ver Cuadros"> -->
+<!-- 					</form></td> -->
+				<td><a th:href="@{/picture/{shopId}(shopId=${shop.id})}"
+					class="btn btn-large btn-block btn-primary full-width">Añadir nuevo Cuadro</a></td>
+			</tr>
+		</tbody>
+	</table>
+
+	<form th:action="@{/shop}" th:method="post" class="col card p-3 mb-5">
+		<input type="submit" class="btn btn-primary"
+			value="Crear Nueva Tienda">
+		<div class="form-group">
+			<label>Nombre</label> <input type="text" required name="name"
+				class="form-control" />
+		</div>
+		<div class="form-group">
+			<label>Cantidad</label> <input type="text" required name="quantity"
+				class="form-control" />
+		</div>
+	</form>
+</body>
+</html>
